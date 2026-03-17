@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Document ID** | NVK-IDG-2023-001 |
-| **Version** | 2.1 |
+| **Version** | 2.2 |
 | **Date** | 8 January 2024 |
 | **Owner** | Enterprise Architecture — Integration Standards |
 | **Scope** | All integration services exposing or consuming APIs within Norvik Bank |
@@ -97,7 +97,9 @@ For the Finestra Core `TXN.*` record set, the following classifications apply:
 | `TXN.CHANNEL` | PUBLIC |
 | `TXN.MANDATE.REF` | PUBLIC |
 
-**Audit check:** inspect API response schemas and source code for any field that maps to INTERNAL, RESTRICTED, or HIGHLY SENSITIVE data. Any exposure — including renamed, aliased, or derived forms — is a finding.
+**Exception — one-way cryptographic derivation:** A field derived from an INTERNAL or RESTRICTED field using a one-way hash function approved under IG-001 (e.g. SHA-256) is not considered an exposure, provided: (a) the derivation is irreversible — no lookup table or reverse mapping exists in the service, (b) the integration spec explicitly mandates the derivation, and (c) the hash input includes a context-specific salt (e.g. account IBAN) to prevent cross-entity correlation. This exception does not apply to HIGHLY SENSITIVE fields, which must never be derived in any form.
+
+**Audit check:** inspect API response schemas and source code for any field that maps to INTERNAL, RESTRICTED, or HIGHLY SENSITIVE data. Any exposure — including renamed, aliased, or derived forms — is a finding, unless the one-way cryptographic derivation exception above applies.
 
 ---
 
@@ -114,3 +116,4 @@ These guidelines are checked automatically by governance agents in the CI/CD pip
 | 1.0 | 2022-06-15 | Initial publication |
 | 2.0 | 2023-03-20 | Added IG-003 (data classification). Expanded IG-001 to prohibit MD5 for all uses. |
 | 2.1 | 2024-01-08 | Added Finestra Core TXN.* field classifications. Clarified IG-002 scope to include framework-level errors. |
+| 2.2 | 2026-03-17 | Added one-way cryptographic derivation exception to IG-003 for spec-mandated irreversible hashing of INTERNAL/RESTRICTED fields. |

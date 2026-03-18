@@ -6,18 +6,11 @@ Read `integration-compliance-checks/integration-guidelines.md`. These are mandat
 
 ## Step 2 — Explore the codebase
 
-Search the repository for the service's source code. Look for:
-- Cryptographic operations: hashing, encryption, digest algorithms, key generation
-- Error and exception handling: how errors are formatted and returned to clients
-- Data mapping: how internal/backend fields are transformed into API responses
-- Response DTOs: what fields are exposed to external consumers
+Search the repository for the service's source code. 
 
 ## Step 3 — Audit
 
-Check the implementation against every guideline. For each guideline, apply the audit checks described in the document. Pay particular attention to:
-- **Prohibited algorithms** — check all usages of hash functions, encryption, and digest libraries against the approved/prohibited lists
-- **Error response format** — verify every error path (application errors, framework errors, infrastructure errors) returns the required format
-- **Sensitive data exposure** — check whether any field classified as INTERNAL, RESTRICTED, or HIGHLY SENSITIVE in the guidelines appears in API responses, even if renamed, aliased, or nested
+Check the implementation against every guideline.
 
 ## Step 4 — Write findings
 

@@ -11,14 +11,13 @@ Search the repository for the service's source code. Look for:
 - Response DTOs and data models
 - Transformation or mapping logic between internal models and API responses
 - Exception handlers and error response formatting
-- Any configuration that affects response shape or field visibility
 
 ## Step 3 — Audit
 
-Compare the implementation against every requirement in the spec. Check for:
+Compare the implementation against the spec. Check for:
 - **Suppressed field leaks** — fields the spec says must never appear in responses, even under different names, aliases, or nested structures
 - **Transformation logic errors** — incorrect date handling, missing truncation, conditional fields always present or always absent
-- **Schema violations** — required fields missing, optional fields missing , extra fields present, wrong types, etc. The schema should adhere to the spec in all response paths, including error responses
+- **Schema violations** — required fields missing, extra fields present, wrong types, etc.
 - **Error contract violations** — error responses not matching the format specified
 
 ## Step 4 — Write findings
